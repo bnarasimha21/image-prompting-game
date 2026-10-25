@@ -28,7 +28,10 @@ export const maxDuration = 180
 
 // Function to generate similar but different prompts using Gradient LLM
 async function generateDecoyPrompts(actualPrompt: string, apiKey: string): Promise<string[]> {
-  const GRADIENT_API_BASE = 'https://api.gradient.ai/v1'
+  // Same DigitalOcean Gradient AI Platform host (and key) as the image calls below.
+  // The old api.gradient.ai host is a different service that rejects this key,
+  // which silently sent every game down the canned-fallback decoy path.
+  const GRADIENT_API_BASE = 'https://inference.do-ai.run/v1'
   
   try {
     const systemPrompt = `You are a helpful assistant that generates detailed image generation prompts. Generate exactly 3 alternative image generation prompts that are similar but meaningfully different from the given prompt.

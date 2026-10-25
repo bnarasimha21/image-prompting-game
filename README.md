@@ -8,7 +8,7 @@ A fun, educational game where users guess which prompt was used to generate an A
 - 📊 Track accuracy and statistics
 - 🎨 Beautiful, modern UI
 - 📈 Score tracking
-- 💰 Cost-effective - uses only fal.ai API
+- 💰 One key: image generation and decoy prompts both go through DigitalOcean Gradient AI Platform serverless inference
 
 ## Setup
 
@@ -19,8 +19,10 @@ npm install
 
 2. Create a `.env.local` file with your API key:
 ```
-FAL_AI_API_KEY=your_fal_ai_key
+MODEL_ACCESS_KEY=your_gradient_model_access_key
 ```
+
+`FAL_AI_API_KEY` is accepted as an alternative name for the same key (`MODEL_ACCESS_KEY` wins if both are set).
 
 3. Run the development server:
 ```bash
@@ -44,12 +46,12 @@ npm run dev
 2. Navigate to Gradient AI Platform
 3. Opt in to the public preview (takes 10-15 minutes for access)
 4. Get your Model Access Key from the Gradient AI Platform dashboard
-5. Use this key as `FAL_AI_API_KEY` in your `.env.local`
+5. Use this key as `MODEL_ACCESS_KEY` (or `FAL_AI_API_KEY`) in your `.env.local`
 6. Reference: [DigitalOcean fal.ai blog post](https://www.digitalocean.com/blog/fal-ai-image-models-gradient-ai-platform)
 
 ## Features Breakdown
 
-- **Game Mechanics**: Generates an image with a random prompt, then shows 4 prompt options (1 correct + 3 decoys)
+- **Game Mechanics**: Generates an image with a random prompt (`fal-ai/flux/schnell`), then shows 4 prompt options (1 correct + 3 decoys written by `openai-gpt-oss-120b`; if that call fails the server falls back to canned variations)
 - **Scoring System**: Tracks your accuracy and correct guesses
 - **Statistics Dashboard**: Visual representation of your performance
 - **Local Storage**: Your progress is saved in your browser
